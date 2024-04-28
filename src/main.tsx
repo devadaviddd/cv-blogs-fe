@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { Amplify } from 'aws-amplify'
-import amplifyconfig from './amplifyconfiguration.json'
 
-Amplify.configure(amplifyconfig)
+const config = {
+  aws_project_region: import.meta.env.aws_project_region,
+  aws_content_delivery_bucket: import.meta.env.aws_content_delivery_bucket,
+  aws_content_delivery_bucket_region: import.meta.env
+    .aws_content_delivery_bucket_region,
+  aws_content_delivery_url: import.meta.env.aws_content_delivery_url,
+}
+
+Amplify.configure(config)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
