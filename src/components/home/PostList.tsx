@@ -1,13 +1,22 @@
 import Flicking from '@egjs/react-flicking'
 import { useEffect, useRef } from 'react'
 import PostCard from './PostCard'
+import { useAppDispatch } from '@/hooks/store-hooks'
+import GetPostApi from '@/apis/GetPostApi'
+import { setPostData } from '@/store/slices/postSlice'
 
 export default function PostList() {
   const postCarouselRef = useRef<Flicking>(null)
 
+  const dispatch = useAppDispatch()
+  const { data: posts } = GetPostApi()
+
   useEffect(() => {
     document.body.addEventListener('wheel', onWheelChange)
-  }, [])
+    if (posts) {
+      dispatch(setPostData(posts))
+    }
+  }, [dispatch, posts])
 
   const onWheelChange = (e: WheelEvent) => {
     if (postCarouselRef.current) {
@@ -29,11 +38,10 @@ export default function PostList() {
       useFindDOMNode={true}
       ref={postCarouselRef}
     >
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
+      {posts &&
+        posts.map((post) => {
+          return <PostCard key={post.id} post={post} />
+        })}
     </Flicking>
   )
 }

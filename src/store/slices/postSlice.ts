@@ -1,10 +1,5 @@
 import { Post } from '@/apis/types/post'
-import {
-  ActionReducerMapBuilder,
-  createSlice,
-  PayloadAction,
-} from '@reduxjs/toolkit'
-import { getPostAction } from '@store/actions/postActions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export const postSliceName = 'post'
 
@@ -19,15 +14,12 @@ const initialState: PostState = {
 const postSlice = createSlice({
   name: postSliceName,
   initialState: initialState,
-  reducers: {},
-  extraReducers: (builder: ActionReducerMapBuilder<PostState>): void => {
-    builder.addCase(
-      getPostAction.fulfilled,
-      (state: PostState, action: PayloadAction<Post[]>) => {
-        state.data = action.payload
-      }
-    )
+  reducers: {
+    setPostData: (state, { payload }: PayloadAction<Post[]>) => {
+      state.data = payload
+    },
   },
 })
 
+export const { setPostData } = postSlice.actions
 export const postReducer = postSlice.reducer
