@@ -16,6 +16,7 @@ export default function AppLayout() {
       className="w-screen h-screen"
       useFlexGap 
     >
+      
       <Navbar />
       <HomeLayout />
     </Stack>
