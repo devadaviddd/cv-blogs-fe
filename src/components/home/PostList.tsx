@@ -7,7 +7,7 @@ import { setPostData } from '@/store/slices/postSlice'
 
 export default function PostList() {
   const postCarouselRef = useRef<Flicking>(null)
-
+  
   const dispatch = useAppDispatch()
   const { data: posts } = GetPostApi()
 
