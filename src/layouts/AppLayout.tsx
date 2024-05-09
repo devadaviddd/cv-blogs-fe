@@ -4,19 +4,14 @@ import HomeLayout from './HomeLayout'
 
 export default function AppLayout() {
   return (
-    // <div className="w-screen h-screen">
-    //   <Navbar />
-    //   <HomeLayout />
-    // </div>
     <Stack
       direction="column"
       justifyContent="flex-start"
       alignItems="stretch"
       spacing={1}
-      className="w-screen h-screen"
-      useFlexGap 
+      className="w-screen h-screen overflow-x-hidden"
+      useFlexGap
     >
-      
       <Navbar />
       <HomeLayout />
     </Stack>

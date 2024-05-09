@@ -29,7 +29,7 @@ export default function Navbar() {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <IconButton
           size="large"

@@ -3,6 +3,7 @@ import AppLayout from './layouts/AppLayout'
 import { auth } from './apis/servers/google-auth-server'
 import { useAppDispatch } from './hooks/store-hooks'
 import { setIsLogin } from './store/slices/authSlice'
+import SideBar from './components/common/SideBar'
 
 const queryClient = new QueryClient()
 
@@ -24,6 +25,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppLayout />
+      <SideBar/>
     </QueryClientProvider>
   )
 }
