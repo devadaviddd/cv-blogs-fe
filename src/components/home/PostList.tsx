@@ -1,47 +1,36 @@
-import Flicking from '@egjs/react-flicking'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import PostCard from './PostCard'
 import { useAppDispatch } from '@/hooks/store-hooks'
 import GetPostApi from '@/apis/GetPostApi'
 import { setPostData } from '@/store/slices/postSlice'
+import { CircularProgress } from '@mui/material'
+import ErrorAlert from '../common/ErrorAlert'
 
 export default function PostList() {
-  const postCarouselRef = useRef<Flicking>(null)
-  
   const dispatch = useAppDispatch()
-  const { data: posts } = GetPostApi()
+  const { data: posts, isLoading, error } = GetPostApi()
 
   useEffect(() => {
-    document.body.addEventListener('wheel', onWheelChange)
     if (posts) {
       dispatch(setPostData(posts))
     }
   }, [dispatch, posts])
 
-  const onWheelChange = (e: WheelEvent) => {
-    if (postCarouselRef.current) {
-      const postCarousel = postCarouselRef.current
-      const cameraPosition = postCarousel.camera.position
-      postCarousel.control.controller.axes.setTo(
-        { flick: cameraPosition + e.deltaY },
-        0
-      )
+
+  useEffect(() => {
+    if (error) {
+      console.log(error.uiMessage)      
     }
-  }
+  }, [error])
 
   return (
-    <Flicking
-      circular={true}
-      horizontal={false}
-      className="w-full h-full"
-      align="prev"
-      useFindDOMNode={true}
-      ref={postCarouselRef}
-    >
+    <div className='w-full h-full flex flex-col items-center'>
+      {isLoading && <CircularProgress/>}
+      {error && <ErrorAlert error={error}/>}
       {posts &&
         posts.map((post) => {
           return <PostCard key={post.id} post={post} />
         })}
-    </Flicking>
+    </div>
   )
 }
