@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Home",
+    "icon": "Home",
+    "path": "/home"
+  },
+  {
+    "title": "Profile",
+    "icon": "AccountCircle",
+    "path": "/profile"
+  },
+  {
+    "title": "Blogs",
+    "icon": "MenuBook",
+    "path": "/blog"
+  },
+  {
+    "title": "Notes",
+    "icon": "Note",
+    "path": "/note"
+  },
+  {
+    "title": "Jobs",
+    "icon": "Work",
+    "path": "/job"
+  },
+  {
+    "title": "Offers",
+    "icon": "Assignment",
+    "path": "/offer"
+  }
+]

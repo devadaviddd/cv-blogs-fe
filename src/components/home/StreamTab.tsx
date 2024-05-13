@@ -2,15 +2,15 @@ import { useState } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 
-export default function FeedsTab() {
+export default function StreamTab() {
   const [value, setValue] = useState('one')
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
   return (
     <Tabs
-      className='fixed bottom-1/2'
+      className='hidden xl:flex fixed bottom-[25rem]'
       value={value}
       onChange={handleChange}
       textColor="secondary"

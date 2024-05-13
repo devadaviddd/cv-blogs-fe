@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
-import Navbar from '../components/common/Navbar'
 import HomeLayout from './HomeLayout'
+import NavBar from '@/components/common/NavBar'
 
 export default function AppLayout() {
   return (
@@ -12,7 +12,7 @@ export default function AppLayout() {
       className="w-screen h-screen overflow-x-hidden"
       useFlexGap
     >
-      <Navbar />
+      <NavBar />
       <HomeLayout />
     </Stack>
   )
