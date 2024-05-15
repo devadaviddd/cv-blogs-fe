@@ -22,3 +22,6 @@ export default function GetPostApi() {
     error 
   }
 }
+
+
+export type GetPostApiType = ReturnType<typeof GetPostApi>;

@@ -15,12 +15,13 @@ import { ThemeProvider } from '@emotion/react'
 import theme from './styles/theme.ts'
 import RootPage from './pages/RootPage.tsx'
 import ErrorPage from './pages/ErrorPage.tsx'
-import IndexPage from './pages/IndexPage.tsx'
+import IndexPage, { loader } from './pages/IndexPage.tsx'
 import ProfilePage from './pages/ProfilePage.tsx'
 import BlogsPage from './pages/BlogsPage.tsx'
 import NotesPage from './pages/NotesPage.tsx'
 import JobsPage from './pages/JobsPage.tsx'
 import OffersPage from './pages/OffersPage.tsx'
+import BlogPage from './pages/BlogDetailPage.tsx'
 
 const config = {
   aws_project_region: import.meta.env.aws_project_region,
@@ -34,11 +35,12 @@ Amplify.configure(config)
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" errorElement={<ErrorPage />}  element={<RootPage />  }>
+    <Route path="/"  errorElement={<ErrorPage />}  element={<RootPage />  }>
       <Route errorElement={<ErrorPage />}>
-        <Route index element={<IndexPage />  } />
+        <Route index loader={loader} element={<IndexPage />  } />
         <Route path='profile' element={<ProfilePage />} />
         <Route path='blog' element={<BlogsPage />} />
+        <Route path='blog/:id' element={<BlogPage/>}/>
         <Route path='note' element={<NotesPage />} />
         <Route path='job' element={<JobsPage />} />
         <Route path='offer' element={<OffersPage />} />

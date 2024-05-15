@@ -147,8 +147,8 @@ export default function NavBar() {
         <Divider />
         <List>
           {navList.map((item, index) => (
-            <Link to={item.path}>
-              <ListItem key={index} disablePadding>
+            <Link to={item.path} key={index}>
+              <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     <IconMUI iconName={item.icon as IconNames} />
