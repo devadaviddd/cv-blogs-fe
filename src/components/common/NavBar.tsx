@@ -10,30 +10,29 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MenuIcon from '@mui/icons-material/Menu';
-import LoginApi from '@/apis/LoginApi';
-import { useAppDispatch } from '@/hooks/store-hooks';
-import { auth } from '@/apis/servers/google-auth-server';
-import { isLoginSelector } from '@/store/selectors/authSelector';
-import { setAuthSession } from '@/store/slices/authSlice';
-import { useSelector } from 'react-redux';
-import navList from '@/common/navList.json';
-import IconMUI, { IconNames } from '@/common/IconMUI';
-
-
+} from '@mui/material'
+import { useEffect, useState } from 'react'
+import { styled, useTheme } from '@mui/material/styles'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import MenuIcon from '@mui/icons-material/Menu'
+import LoginApi from '@/apis/LoginApi'
+import { useAppDispatch } from '@/hooks/store-hooks'
+import { auth } from '@/apis/servers/google-auth-server'
+import { isLoginSelector } from '@/store/selectors/authSelector'
+import { setAuthSession } from '@/store/slices/authSlice'
+import { useSelector } from 'react-redux'
+import navList from '@/common/navList.json'
+import IconMUI, { IconNames } from './IconMUI'
+import { Link } from 'react-router-dom'
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  open?: boolean
 }
 
-const DRAWER_WIDTH = 240;
-const BREAK_POINT_SIDE_NAV = 1650;
+const DRAWER_WIDTH = 240
+const BREAK_POINT_SIDE_NAV = 1650
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -50,7 +49,7 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
-}));
+}))
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -59,35 +58,35 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
-}));
+}))
 
 export default function NavBar() {
-  const { onGoogleLogin } = LoginApi();
-  const dispatch = useAppDispatch();
-  const isLogin = useSelector(isLoginSelector);
+  const { onGoogleLogin } = LoginApi()
+  const dispatch = useAppDispatch()
+  const isLogin = useSelector(isLoginSelector)
 
   const handleGoogleSignIn = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!isLogin) {
-      const user = await onGoogleLogin();
-      dispatch(setAuthSession(user));
+      const user = await onGoogleLogin()
+      dispatch(setAuthSession(user))
     } else {
-      await auth.signOut();
+      await auth.signOut()
     }
-  };
+  }
 
-  const theme = useTheme();
-  const [open, setOpen] = useState(true);
+  const theme = useTheme()
+  const [open, setOpen] = useState(true)
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleResize = () => {
     if (window.innerWidth < BREAK_POINT_SIDE_NAV) {
@@ -98,14 +97,13 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    
+    window.addEventListener('resize', handleResize)
   }, [])
 
   return (
     <>
-      <AppBar position="fixed" open={open} >
-        <Toolbar >
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -137,7 +135,7 @@ export default function NavBar() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader className='600-screen:min-h-0 600-screen:h-[3rem]'>
+        <DrawerHeader className="600-screen:min-h-0 600-screen:h-[3rem]">
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
@@ -149,17 +147,19 @@ export default function NavBar() {
         <Divider />
         <List>
           {navList.map((item, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <IconMUI iconName={item.icon as IconNames}/>
-                </ListItemIcon>
-                <ListItemText primary={item.title}/>
-              </ListItemButton>
-            </ListItem>
+            <Link to={item.path}>
+              <ListItem key={index} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <IconMUI iconName={item.icon as IconNames} />
+                  </ListItemIcon>
+                  <ListItemText primary={item.title} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
     </>
-  );
+  )
 }
