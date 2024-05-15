@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import AppLayout from './layouts/AppLayout';
 import { auth } from './apis/servers/google-auth-server';
 import { useAppDispatch } from './hooks/store-hooks';
 import { setIsLogin } from './store/slices/authSlice';
@@ -26,7 +25,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <AppLayout />
+        {/* <AppLayout /> */}
+        <></>
       </ThemeProvider>
     </QueryClientProvider>
   );
